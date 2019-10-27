@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -32,6 +34,22 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Wish", mappedBy="user", orphanRemoval=true)
+     */
+    private $wishes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Positionning", mappedBy="user", orphanRemoval=true)
+     */
+    private $yes;
+
+    public function __construct()
+    {
+        $this->wishes = new ArrayCollection();
+        $this->yes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -109,5 +127,67 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Wish[]
+     */
+    public function getWishes(): Collection
+    {
+        return $this->wishes;
+    }
+
+    public function addWish(Wish $wish): self
+    {
+        if (!$this->wishes->contains($wish)) {
+            $this->wishes[] = $wish;
+            $wish->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWish(Wish $wish): self
+    {
+        if ($this->wishes->contains($wish)) {
+            $this->wishes->removeElement($wish);
+            // set the owning side to null (unless already changed)
+            if ($wish->getUser() === $this) {
+                $wish->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Positionning[]
+     */
+    public function getYes(): Collection
+    {
+        return $this->yes;
+    }
+
+    public function addYe(Positionning $ye): self
+    {
+        if (!$this->yes->contains($ye)) {
+            $this->yes[] = $ye;
+            $ye->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeYe(Positionning $ye): self
+    {
+        if ($this->yes->contains($ye)) {
+            $this->yes->removeElement($ye);
+            // set the owning side to null (unless already changed)
+            if ($ye->getUser() === $this) {
+                $ye->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
