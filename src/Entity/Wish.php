@@ -40,7 +40,7 @@ class Wish
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Gift", mappedBy="whish", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Gift", mappedBy="wish", orphanRemoval=true)
      */
     private $gifts;
 
