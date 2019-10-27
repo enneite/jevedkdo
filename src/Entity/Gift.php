@@ -20,7 +20,7 @@ class Gift
      * @ORM\ManyToOne(targetEntity="App\Entity\Wish", inversedBy="gifts")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $whish;
+    private $wish;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -42,14 +42,14 @@ class Gift
         return $this->id;
     }
 
-    public function getWhish(): ?Wish
+    public function getWish(): ?Wish
     {
-        return $this->whish;
+        return $this->wish;
     }
 
-    public function setWhish(?Wish $whish): self
+    public function setWish(?Wish $wish): self
     {
-        $this->whish = $whish;
+        $this->wish = $wish;
 
         return $this;
     }
