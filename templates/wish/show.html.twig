@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wish{% endblock %}
+
+{% block body %}
+    <h1>Wish</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ wish.id }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ wish.status }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ wish.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ wish.description }}</td>
+            </tr>
+            <tr>
+                <th>Gifts</th>
+                <td>
+                    <table>
+                    {% for gift in wish.gifts %}
+                         <tr>
+                            <td>
+                                <a href="{{ path('gift_show', {'id': gift.id}) }}">{{ gift.title }}</a>
+                            </td>
+                         </tr>
+                    {% endfor %}
+                    </table>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('wish_index') }}">back to list</a>
+
+    <a href="{{ path('wish_edit', {'id': wish.id}) }}">edit</a>
+
+    {{ include('wish/_delete_form.html.twig') }}
+{% endblock %}
