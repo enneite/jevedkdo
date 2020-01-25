@@ -38,12 +38,17 @@ class GiftController extends AbstractController
         $form = $this->createForm(GiftType::class, $gift);
         $form->handleRequest($request);
 
+
+
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($gift);
             $entityManager->flush();
 
-            return $this->redirectToRoute('gift_index');
+            $w = $form->get('wish')->getData();// when user select an other wish list in this form
+
+            return $this->redirectToRoute('gift_index', ['wish' => $w->getId()]);
         }
 
         return $this->render('gift/new.html.twig', [

@@ -15,7 +15,7 @@ class WishType extends AbstractType
             ->add('status')
             ->add('title')
             ->add('description')
-            ->add('user')
+            //->add('user')
         ;
     }
 

@@ -15,7 +15,7 @@ class GiftType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('wish')
-            ->add('positionning')
+            //->add('positionning')
         ;
     }
 
