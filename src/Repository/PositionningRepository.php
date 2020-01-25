@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Positionning;
+use App\Entity\User;
+use App\Entity\Gift;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -19,6 +21,20 @@ class PositionningRepository extends ServiceEntityRepository
         parent::__construct($registry, Positionning::class);
     }
 
+    public function checkAssociation(Gift $gift, User $user)
+    {
+	$res= $this->createQueryBuilder('p')
+		->andWhere('p.user = :user')
+		->andWhere('p.gift = :gift')
+		->setParameter('gift', $gift)
+		->setParameter('user', $user)
+            ->getQuery()
+	    ->getOneOrNullResult() ;
+	//echo (get_class($res));exit;
+	return $res != null;
+
+
+    }
     // /**
     //  * @return Positionning[] Returns an array of Positionning objects
     //  */

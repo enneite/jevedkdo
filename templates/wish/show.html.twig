@@ -32,6 +32,9 @@
                             <td>
                                 <a href="{{ path('gift_show', {'id': gift.id}) }}">{{ gift.title }}</a>
                             </td>
+                            <td>
+                               <a href="{{ path('positionning_new', {'gift': gift.id}) }}">{{"keep it"}}</a>
+                           </td>
                          </tr>
                     {% endfor %}
                     </table>

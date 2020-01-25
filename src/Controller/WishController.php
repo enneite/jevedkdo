@@ -54,7 +54,7 @@ class WishController extends AbstractController
      */
     public function show(Wish $wish): Response
     {
-        $this->acl($wish);
+        //$this->acl($wish);
         return $this->render('wish/show.html.twig', [
             'wish' => $wish,
         ]);
